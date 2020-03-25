@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "moduleResolution": "node",
+    "outFile": "./dist/bundle.js",
+    "module": "System",
+    "baseUrl": "."
+  },
+  "include": [
+    "*.js",
+    "*.ts",
+    "*.vue"
+  ],
+  "exclude": [
+    "./node_modules"
+  ],
+  "files": [
+    "vue-shims.d.ts"
+  ]
+}
