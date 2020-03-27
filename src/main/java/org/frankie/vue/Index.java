@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class Index {
 
     @GetMapping("/")
-    @ResponseBody
     public String index() {
-        return "hello from spring boot";
+        return "index";
     }
 
 }

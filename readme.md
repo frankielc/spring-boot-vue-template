@@ -1,17 +1,18 @@
-# things to do to start this up
+#### What does this project template bring to the table?
+- **SpringBoot** auto configured with:
+  - **Vue.JS**
+  - custom security
+  - hot-reloading of both Spring and Vue for faster development
 
-1. start intellij as a maven project and copy pom.xml
+#### How to use?
 
-2. install gulp, launch spring via gulp  
-  `yarn add gulp execa browsersync --dev`
-  
-3. configure gulp  
-   > copy gulpfile.js
+1. `yarn install` to download all dependencies
+2. `gulp dev` for development
+3. `gulp package` to export Spring Boot to a  fat-jar
 
-4. configure @vue/cli  
-   `yarn global add @vue/cli`
-   
-5. create vue project  
-   `vue create hello-world`; and copy package.json relevant code  
-   to run server in hot-build mode  
-   `vue-cli-service build --watch`
+
+#### On development mode how are things in sync?
+
+Vue builds and exports files to folder `dist/static`.  
+Spring picks those files up when packaging.  
+While developing sync between `dist/static` and `target/classes/...` is done by gulp watchers.

@@ -7,9 +7,9 @@
     "baseUrl": "."
   },
   "include": [
-    "*.js",
-    "*.ts",
-    "*.vue"
+    "./src/frontend/**/*.js",
+    "./src/frontend/**/*.ts",
+    "./src/frontend/**/*.vue"
   ],
   "exclude": [
     "./node_modules"
