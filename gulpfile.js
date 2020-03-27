@@ -15,7 +15,7 @@ function launchSpring() {
 }
 
 /* vue initial launch is run prior to spring so that when it starts resources are in place */
-function launchVueInitial(cb) {
+function launchVueInitial() {
     return execa('vue-cli-service build --mode development', {stdio: 'inherit'});
 }
 
@@ -33,6 +33,9 @@ function launchBrowserSync() {
         open: false,
         browser: "chrome",
     });
+
+    /* the reload-trigger file is updated by spring on change */
+    gulp.watch("reload-trigger", {usePolling: true}).on("change", browserSync.reload);
 }
 
 function cleanProject() {

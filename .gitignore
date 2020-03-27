@@ -3,3 +3,4 @@
 *.iml
 /dist
 /target
+reload-trigger
