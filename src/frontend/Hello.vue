@@ -1,5 +1,5 @@
 <template>
-    <div id="hello">
+    <div id="app">
         {{ message }}
     </div>
 </template>
@@ -21,7 +21,7 @@
 </script>
 
 <style>
-    #hello {
+    #app {
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;

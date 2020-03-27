@@ -3,10 +3,11 @@ const del = require('del');
 const execa = require('execa');
 const browserSync = require('browser-sync').create();
 
-
+const springWebServerAddress = "localhost:8080";
 const staticElementsLocationRegex = './dist/**';
 const javaStaticElementsDir = './target/classes/';
-const springWebServerAddress = "localhost:8080";
+const thymeleafOrigin = './src/main/resources/templates/**/*.html';
+const thymeleafDestination = './target/classes/templates/';
 
 /* simply launches spring-boot in dev mode */
 function launchSpring() {
@@ -38,16 +39,20 @@ function cleanProject() {
     return del(['./dist', './target']);
 }
 
-// function makeDistFolder() {
-//     return gulp.src('*.*', {read: false})
-//         .pipe(gulp.dest('./dist'));
-// }
-
 function watchStaticElements() {
     return gulp.watch(staticElementsLocationRegex,
-        {
-            usePolling: true /* required as without it builds grow exponentially */
-        }, gulp.series(transferStaticFiles));
+        {usePolling: true /* required as without it builds grow exponentially */},
+        gulp.series(transferStaticFiles));
+}
+
+function watchThymeleafTemplates() {
+    return gulp.watch(thymeleafOrigin,
+        {usePolling: true /* required as without it builds grow exponentially */},
+        function () {
+            return gulp.src(thymeleafOrigin)
+                .pipe(gulp.dest(thymeleafDestination))
+                .pipe(browserSync.stream());
+        });
 }
 
 function transferStaticFiles() {
@@ -64,5 +69,11 @@ exports.dev = gulp.series(
     cleanProject,
     // makeDistFolder,
     launchVueInitial,
-    gulp.parallel(watchStaticElements, launchBrowserSync, launchSpring, launchVue)
+    gulp.parallel(
+        watchStaticElements,
+        watchThymeleafTemplates,
+        launchBrowserSync,
+        launchSpring,
+        launchVue
+    )
 );
