@@ -4,3 +4,4 @@
 /dist
 /target
 reload-trigger
+*.log
