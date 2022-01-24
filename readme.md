@@ -13,6 +13,10 @@
 
 #### On development mode how are things in sync?
 
-Vue builds and exports files to folder `dist/static`.  
+Vue builds and exports files to folder `dist/`.  
+
 Spring picks those files up when packaging.  
-While developing sync between `dist/static` and `target/classes/...` is done by gulp watchers.
+
+While developing, sync between `dist/` (managed by Vue) 
+and `target/classes/...` (read by Spring), is done by gulp 
+watchers.

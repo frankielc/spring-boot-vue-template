@@ -9,21 +9,30 @@ const javaStaticElementsDir = './target/classes/';
 const thymeleafOrigin = './src/main/resources/templates/**/*.html';
 const thymeleafDestination = './target/classes/templates/';
 
-/* simply launches spring-boot in dev mode */
+/* start Spring in dev mode */
 function launchSpring() {
     execa('mvn spring-boot:run', {stdio: 'inherit'})
 }
 
-/* vue initial launch is run prior to spring so that when it starts resources are in place */
-function launchVueInitial() {
-    return execa('vue-cli-service build --mode development', {stdio: 'inherit'});
-}
-
-/* simply launches spring-boot in dev mode */
+/* start Vue in dev mode */
 function launchVue() {
     execa('vue-cli-service build --watch --mode development', {stdio: 'inherit'})
 }
 
+/* Vue initial launch should run before Spring so that when it starts resources are in place */
+function launchVueInitial() {
+    return execa('vue-cli-service build --mode development', {stdio: 'inherit'});
+}
+
+function springPackage() {
+    return execa('mvn package', {stdio: 'inherit'})
+}
+
+function vueProduction() {
+    return execa('vue-cli-service build --mode production', {stdio: 'inherit'});
+}
+
+/* BrowserSync pushes js and css directly to browser speeding up preview */
 function launchBrowserSync() {
     browserSync.init({
         proxy: {
@@ -79,4 +88,10 @@ exports.dev = gulp.series(
         launchSpring,
         launchVue
     )
+);
+
+exports.package = gulp.series(
+    cleanProject,
+    vueProduction,
+    springPackage
 );
